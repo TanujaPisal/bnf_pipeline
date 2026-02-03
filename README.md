@@ -1,103 +1,93 @@
-# Nextflow QC, Alignment and Variant Calling Pipeline
+# 🧬 Nextflow QC, Alignment & Variant Calling Pipeline
+
+![Nextflow](https://img.shields.io/badge/Nextflow-DSL2-brightgreen)
+![Conda](https://img.shields.io/badge/Conda-Environment-blue)
+![Platform](https://img.shields.io/badge/Platform-Linux%20%7C%20WSL-lightgrey)
+![Status](https://img.shields.io/badge/Status-Completed-success)
 
 ---
 
-## Overview
+## 📌 Overview
 
-This project implements a modular **Nextflow DSL2 pipeline** for basic NGS data preprocessing and variant calling.
+This repository contains a **modular Nextflow DSL2 pipeline** for basic **NGS data preprocessing and variant calling**.
 
-The pipeline performs:
+The workflow processes a single FASTQ file and performs:
 
-- Quality Control (FastQC)
-- Adapter trimming (Cutadapt)
-- Post-trimming QC
-- Read alignment (BWA)
-- BAM sorting and indexing (Samtools)
-- Variant calling (BCFtools)
-
----
-
-## Pipeline Workflow
-
-Raw FASTQ  
-↓  
-FastQC (Raw Reads)  
-↓  
-Read Trimming  
-↓  
-FastQC (Trimmed Reads)  
-↓  
-Read Alignment (SAM → BAM)  
-↓  
-Sorting & Indexing  
-↓  
-Variant Calling (VCF generation)
+- 🔍 Quality Control
+- ✂️ Adapter trimming
+- 📊 Post-trimming QC
+- 🧬 Read alignment
+- 📁 BAM sorting & indexing
+- 🧪 Variant calling (VCF generation)
 
 ---
 
-## Pipeline Steps
+## 🧭 Pipeline Workflow
 
-### Step 1: Raw Read Quality Control
-- Performs quality assessment on raw FASTQ reads
-- Generates reports for base quality, GC content, adapters
-
-**Tool:** FastQC
-
----
-
-### Step 2: Read Trimming
-- Removes low-quality bases and adapters
-- Improves read quality for downstream analysis
-
-**Tool:** Cutadapt
-
----
-
-### Step 3: Quality Control After Trimming
-- Runs FastQC on trimmed reads
-- Confirms improvement in read quality
-
-**Tool:** FastQC
-
----
-
-### Step 4: Read Alignment
-- Aligns trimmed reads to the reference genome
-- Generates sorted and indexed BAM file
-
-**Tools:** BWA, Samtools
+```
+Raw FASTQ
+    │
+    ▼
+FastQC (Raw Reads)
+    │
+    ▼
+Cutadapt (Trimming)
+    │
+    ▼
+FastQC (Trimmed Reads)
+    │
+    ▼
+BWA MEM (Alignment)
+    │
+    ▼
+Samtools Sort
+    │
+    ▼
+Samtools Index
+    │
+    ▼
+BCFtools Variant Calling
+    │
+    ▼
+VCF Output
+```
 
 ---
 
-### Step 5: Variant Calling
-- Performs variant calling from BAM file
-- Generates VCF file containing SNPs/variants
+## 🛠️ Pipeline Modules
 
-**Tool:** BCFtools
+| Step | Process | Tool Used |
+|------|--------|-----------|
+| 1 | Raw Quality Control | FastQC |
+| 2 | Read Trimming | Cutadapt |
+| 3 | Post-trimming QC | FastQC |
+| 4 | Alignment | BWA |
+| 5 | Sorting & Indexing | Samtools |
+| 6 | Variant Calling | BCFtools |
 
 ---
 
-## Input Data
+## 📂 Input
 
-- Single FASTQ file  
+- 📄 FASTQ file  
   `data/Sample.fastq`
 
-- Reference genome  
+- 🧬 Reference genome  
   `reference/reference.fa`
 
 ---
 
-## Output
+## 📤 Output
 
-- FastQC reports (raw and trimmed)
-- Trimmed FASTQ file
-- Sorted BAM file
-- BAM index (.bai)
-- VCF file
+- 📊 FastQC reports (raw & trimmed)
+- ✂️ Trimmed FASTQ file
+- 📁 Sorted BAM file
+- 📌 BAM index (.bai)
+- 🧬 VCF file containing variants
 
 ---
 
-## Project Structure
+## 🗂️ Project Structure
 
 ```
 bnf_pipeline/
@@ -118,12 +108,15 @@ bnf_pipeline/
 ├── main.nf
 ├── nextflow.config
 ├── environment.yml
+├── .gitignore
 └── README.md
 ```
 
 ---
 
-## Clone the Repository
+## 🚀 Installation
+
+### 1️⃣ Clone Repository
 
 ```bash
 git clone https://github.com/TanujaPisal/bnf_pipeline.git
@@ -132,7 +125,7 @@ cd bnf_pipeline
 
 ---
 
-## Create and Activate Conda Environment
+### 2️⃣ Create Conda Environment
 
 ```bash
 conda env create -f environment.yml
@@ -141,13 +134,13 @@ conda activate nf_env
 
 ---
 
-## Run the Pipeline
+### 3️⃣ Run the Pipeline
 
 ```bash
 nextflow run main.nf
 ```
 
-To resume:
+To resume execution:
 
 ```bash
 nextflow run main.nf -resume
@@ -155,8 +148,21 @@ nextflow run main.nf -resume
 
 ---
 
-## Requirements
+## 🧪 Technical Details
 
-- Linux / WSL
-- Conda
-- Nextflow
+- Implemented using **Nextflow DSL2 modular design**
+- Uses **absolute binary paths defined in nextflow.config**
+- Modules are separated for scalability
+- Environment reproducibility ensured using `environment.yml`
+
+---
+
+## 🎓 Academic Context
+
+This pipeline was developed as part of an NGS workflow implementation assignment focusing on:
+
+- Modular pipeline design
+- Reproducible bioinformatics workflows
+- Variant calling using open-source tools
+
+---
