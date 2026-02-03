@@ -9,7 +9,7 @@
 
 ## 📌 Overview
 
-This repository contains a **modular Nextflow DSL2 pipeline** for basic **NGS data preprocessing and variant calling**.
+This repository contains a **modular Nextflow pipeline** for basic **NGS data preprocessing and variant calling**.
 
 The workflow processes a single FASTQ file and performs:
 
@@ -164,5 +164,6 @@ This pipeline was developed as part of an NGS workflow implementation assignment
 - Modular pipeline design
 - Reproducible bioinformatics workflows
 - Variant calling using open-source tools
+
 
 ---
